@@ -1,2 +1,3 @@
-# esmodule_conversion
-cjs to es module
+# iceberg-scripts-modular
+
+Iceberg Code but in 'module' nodejs
