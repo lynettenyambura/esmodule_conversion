@@ -28,6 +28,8 @@ const searchDateRange = async function (from, to, canonicalURL) {
 //     });
 // })();
 
+// check
+
 async function main() {
     await searchDateRange({
         from: moment().subtract(1, 'months'),
