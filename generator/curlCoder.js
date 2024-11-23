@@ -184,7 +184,7 @@ const curlContentParser = function ({ curlString, requestIndex, functionPrefix =
 const currentDir = path.dirname(new URL(import.meta.url).pathname);
 
 // Construct the path to the "projects.txt" file
-const filePath = path.join(currentDir,  "/./pdf/dp16632.txt");
+const filePath = path.join(currentDir, "/./pdf/dp16632.txt");
 
 const generateCode = function () {
 
@@ -198,19 +198,33 @@ const generateCode = function () {
         return;
     }
     contents = contents.toString().replace(/\s*[\\^]\s*\n\s*/ig, " ").split(/\n/g).filter(ln => ln.trim());
-    let generatedCode = `"use strict";\n\nconst querystring = require("querystring");\n`
-        + `const FormData = require("form-data");\n`
-        + `const moment = require('moment');\n`
-        + `const url = require('url');\n`
-        + `const cheerio = require('cheerio');\n`
-        + `const fetch = require('node-fetch');//to reconstruct response fetch.Response(html,....)\n\n`
-        + `const fetcher = require("../../utils/fetcher");\n`
+    // let generatedCode = `"use strict";\n\nconst querystring = require("querystring");\n`
+    //     + `const FormData = require("form-data");\n`
+    //     + `const moment = require('moment');\n`
+    //     + `const url = require('url');\n`
+    //     + `const cheerio = require('cheerio');\n`
+    //     + `const fetch = require('node-fetch');//to reconstruct response fetch.Response(html,....)\n\n`
+    //     + `const fetcher = require("../../utils/fetcher");\n`
+    //     + `let fetchWithCookies = fetcher.fetchWithCookies;\n`
+    //     + `// let fetch = fetcher.fetch;//only use fetchWithCookies or defaultFetchURL for Tests\n`
+    //     + `let defaultFetchURL = fetcher.defaultFetchURL;\n\n\n`
+    //     + `let map = {};\n\n`
+    //     + `function setSharedVariable(key, value) { map[key] = value; }\n\n`
+    //     + `function getSharedVariable(key) {return map[key];}\n\n\n\n`;
+    // generatedCode += fetchPage.toString();
+    let generatedCode = `"use strict";\n\nimport querystring from "querystring";\n`
+        + `import FormData from "form-data";\n`
+        + `import moment from "moment";\n`
+        + `import * as url from "url";\n`
+        + `import cheerio from "cheerio";\n`
+        + `import fetch from "node-fetch"; // to reconstruct response fetch.Response(html,...)\n\n`
+        + `import fetcher from "../.g./utils/fetcher";\n`
         + `let fetchWithCookies = fetcher.fetchWithCookies;\n`
-        + `// let fetch = fetcher.fetch;//only use fetchWithCookies or defaultFetchURL for Tests\n`
+        + `// let fetch = fetcher.fetch; // only use fetchWithCookies or defaultFetchURL for Tests\n`
         + `let defaultFetchURL = fetcher.defaultFetchURL;\n\n\n`
         + `let map = {};\n\n`
         + `function setSharedVariable(key, value) { map[key] = value; }\n\n`
-        + `function getSharedVariable(key) {return map[key];}\n\n\n\n`;
+        + `function getSharedVariable(key) { return map[key]; }\n\n\n\n`;
     generatedCode += fetchPage.toString();
     let codeIndex = 0;
     contents.forEach((ln, index) => {
