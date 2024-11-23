@@ -1,16 +1,16 @@
 "use strict";
 
-// const csv = require("csv-parse/sync");
-// const fs = require("fs");
 
 import { parse } from "csv-parse/sync";
 import fs from 'fs';
 import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 let pathToCSV = path.join(__dirname, 'pdf', 'dp0190-2.csv')
 
-// let pathToCSV = __dirname + `/pdf/dp0190-2.csv`;
 let icbgCsv = fs.readFileSync(pathToCSV);
 
 let cats = new Set();
@@ -24,10 +24,9 @@ let URIs = parse(icbgCsv, {
 });
 
 //write cats to cats.txt, each on a new line
-// fs.writeFileSync(__dirname + `/pdf/cats.txt`, [...cats].sort().join("\n"));
-//write courts to courts.txt, each on a new line
-// fs.writeFileSync(__dirname + `/pdf/courts-v3.txt`, [...courts].sort().join("\n"));
-
 fs.writeFileSync(path.join(__dirname, 'pdf', 'cats.txt'), [...cats].sort().join("\n"));
+
+//write courts to courts.txt, each on a new line
 fs.writeFileSync(path.join(__dirname, 'pdf', 'courts-v3.txt'), [...courts].sort().join("\n"));
+
 

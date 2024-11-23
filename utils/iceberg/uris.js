@@ -1,13 +1,15 @@
 "use strict";
 
-const data = require("./pdf/data");
-const fs = require("fs");
-
-import { data } from './pdf/data';
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const dataFilePath = path.join(__dirname, 'pdf', 'data.json');
+const data = JSON.parse(fs.readFileSync(dataFilePath, 'utf-8'));
 
 const edges = data && data.data && data.data.viewer && data.data.viewer.records && data.data.viewer.records.edges && data.data.viewer.records.edges;
 let anchors = [];
@@ -25,7 +27,7 @@ edges.forEach(edge => {
 })
 let html = `<html lang="en"><body><h1>Content Links</h1><div id="custom-links">\n${anchors.join("\n")}\n</div></body></html>`;
 
-// fs.writeFileSync(__dirname + "/./pdf/data.html", html)
-fs.writeFileSync(path.join(__dirname, './pdf/data.html'), html);
-// fs.writeFileSync(__dirname + "/./pdf/ids.txt", `https://normasapf\.funcionpublica\.gob\.mx//NORMASAPF/Descarga\?id=(${ids.join("|")})`)
-fs.writeFileSync(path.join(__dirname, './pdf/ids.txt'), `https://normasapf\.funcionpublica\.gob\.mx//NORMASAPF/Descarga\?id=(${ids.join("|")})`);
+fs.writeFileSync(path.join(__dirname, 'pdf', 'data.html'), html);
+
+fs.writeFileSync(path.join(__dirname, 'pdf', 'ids.txt'), `https://normasapf\.funcionpublica\.gob\.mx//NORMASAPF/Descarga\?id=(${ids.join("|")})`);
+

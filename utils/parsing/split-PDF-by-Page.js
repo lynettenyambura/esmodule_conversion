@@ -1,15 +1,18 @@
 "use strict";
 
-// const moment = require("moment");
-// const cheerio = require("cheerio");
-// const url = require("url");
-// const querystring = require("querystring");
 
 import moment from "moment";
 import { load } from "cheerio";
 import url from 'url';
 import querystring from 'querystring';
 import fs from 'fs';
+import path from "path";
+
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 
 async function splitPDF({ pdfURL, startPage = 1, endPage = 'end', locale }) {
@@ -44,12 +47,10 @@ async function splitPDF({ pdfURL, startPage = 1, endPage = 'end', locale }) {
 }
 
 const parserTest = function () {
-  // const fs = require("fs");
-  const currentDir = path.dirname(new URL(import.meta.url).pathname);
-  const filePath = path.join(currentDir, "/../pdf/.html");
+  const filePath = path.join(__dirname, "/../pdf/.html");
+
   let buffer = fs.readFileSync(filePath)
 
-  // let buffer = fs.readFileSync(__dirname + "/../pdf/.html");
   buffer = splitPDF({ responseBody: { content: buffer }, URL: "" });
   console.log(JSON.stringify(buffer, null, 4));
   console.log(buffer.length);

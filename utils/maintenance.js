@@ -1,7 +1,5 @@
 "use strict";
 
-
-// const fs = require("fs");
 import fs from 'fs'
 
 let content = fs.readFileSync("./pdf/maintenance.txt").toString().toLowerCase().replace(/,/g, "").split(/\s+/);

@@ -1,14 +1,23 @@
 "use strict";
 
-const moment = require("moment");
-const cheerio = require("cheerio");
-const url = require("url");
-const querystring = require("querystring");
+
+import moment from "moment";
+import { load } from "cheerio";
+import url from 'url';
+import querystring from 'querystring'
+import fs from 'fs'
+import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const sanitizeHtml = (x) => x;
 
-function parsePage({responseBody, URL, html, referer}) {
+function parsePage({ responseBody, URL, html, referer }) {
     console.log(`parsePage: parsing: ${responseBody.fileFormat} ${URL}`);
-    const $ = cheerio.load(responseBody.content, {decodeEntities: false});
+    const $ = load(responseBody.content, { decodeEntities: false });
     $('[data-gx-evt-control] a').each(function (i) {
         let a = $(this);
         console.log(i, a.text().replace(/\s+/g, " ").trim());
@@ -16,9 +25,9 @@ function parsePage({responseBody, URL, html, referer}) {
     return [];
 
 }
-function parsePageFetch({responseBody, URL, html, referer}) {
+function parsePageFetch({ responseBody, URL, html, referer }) {
     console.log(`parsePage: parsing: ${responseBody.fileFormat} ${URL}`);
-    const $ = cheerio.load(responseBody.content, {decodeEntities: false});
+    const $ = load(responseBody.content, { decodeEntities: false });
     const results = [];
     const form = {};
     let state = null;
@@ -60,10 +69,12 @@ function parsePageFetch({responseBody, URL, html, referer}) {
 }
 
 const parserTest = function () {
-    const fs = require("fs");
-    let buffer = fs.readFileSync(__dirname + "/../pdf/2017-2018.html");
+    // const fs = require("fs");
+    const filePath = path.join(__dirname, 'pdf', '2017-2018.html');
+    let buffer = fs.readFileSync(filePath)
+
     buffer = parsePage({
-        responseBody: {content: buffer.toString(), buffer, fileFormat: "text/html"},
+        responseBody: { content: buffer.toString(), buffer, fileFormat: "text/html" },
         URL: "https://www.tca.gub.uy/tcawww/servlet/fallos/fallointereses",
         referer: "https://www.tca.gub.uy/tcawww/servlet/fallos/fallointereses",
         html: null

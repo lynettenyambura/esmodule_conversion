@@ -1,18 +1,18 @@
 "use strict";
 
-// const csv = require("csv-parse/sync");
-// const fs = require("fs");
-// const moment = require("moment");
-
 import { parse } from "csv-parse/sync";
 import fs from 'fs';
 import moment from "moment";
+import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 let pathToCSV = path.join(__dirname, 'pdf', 'PNG-additional-legislation-WITH-DATES.csv')
 
 
-// let pathToCSV = __dirname + `/pdf/PNG-additional-legislation-WITH-DATES.csv`;
 let icbgCsv = fs.readFileSync(pathToCSV);
 
 let uriMap = parse(icbgCsv, {

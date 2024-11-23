@@ -1,11 +1,5 @@
 "use strict";
 
-// const querystring = require("querystring");
-// const FormData = require("form-data");
-// const moment = require('moment');
-// const url = require('url');
-// const cheerio = require('cheerio');
-// const fetch = require('node-fetch');//to reconstruct response fetch.Response(html,....)
 
 import querystring from 'querystring';
 import FormData from 'form-data';
@@ -17,11 +11,7 @@ import https from 'https';
 
 import { fetchWithCookies, defaultFetchURL } from '../../utils/fetcher';
 
-// const fetcher = require("../utils/fetcher");
-// const https = require("https");
-// let fetchWithCookies = fetcher.fetchWithCookies;
 // let fetch = fetcher.fetch;//only use fetchWithCookies or defaultFetchURL for Tests
-// let defaultFetchURL = fetcher.defaultFetchURL;
 
 
 let map = {};

@@ -1,16 +1,17 @@
 "use strict";
 
-// const csv = require("csv-parse/sync");
-// const fs = require("fs");
 
 import { parse } from "csv-parse/sync";
 import fs from 'fs';
 import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 let pathToCSV = path.join(__dirname, 'pdf', '2022-11-29T06_40_22.724Z.csv')
 
-// let pathToCSV = __dirname + `/pdf/2022-11-29T06_40_22.724Z.csv`;
 let icbgCsv = fs.readFileSync(pathToCSV);
 
 let URIs = parse(icbgCsv, {

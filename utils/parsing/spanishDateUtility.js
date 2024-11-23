@@ -1,6 +1,5 @@
 "use strict";
 
-// const moment = require("moment");
 import moment from "moment";
 
 /*Utility to convert a spanish date, month, year in text, to numbers*/

@@ -1,9 +1,5 @@
 "use strict";
 
-// const cheerio = require("cheerio");
-// const moment = require("moment");
-// const url = require("url");
-// const querystring = require("querystring");
 
 import { load } from "cheerio";
 import moment from "moment";
