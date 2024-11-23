@@ -1,13 +1,5 @@
 "use strict";
 
-// const querystring = require("querystring");
-// const FormData = require("form-data");
-// const moment = require('moment');
-// const url = require('url');
-// const cheerio = require('cheerio');
-// const fetch = require('node-fetch');//to reconstruct response fetch.Response(html,....)
-// const puppeteerManager = require("../../utils/PuppeteerManager")
-
 import querystring from 'querystring';
 import FormData from 'form-data';
 import moment from 'moment';
@@ -16,12 +8,7 @@ import { load } from 'cheerio';
 import fetch from 'node-fetch';
 import { newPage, getBrowser } from '../../utils/crawling/PuppeteerManager.js';
 
-// const fetcher = require("../../utils/fetcher");
 import { fetchWithCookies, defaultFetchURL } from '../../utils/fetcher.js'
-// let fetchWithCookies = fetcher.fetchWithCookies;
-// // let fetch = fetcher.fetch;//only use fetchWithCookies or defaultFetchURL for Tests
-// let defaultFetchURL = fetcher.defaultFetchURL;
-
 
 let map = {};
 
@@ -32,7 +19,6 @@ function setSharedVariable(key, value) {
 function getSharedVariable(key) {
     return map[key];
 }
-
 
 const home = async function ({ headers }) {
     let customHeaders = {
