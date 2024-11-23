@@ -28,7 +28,7 @@ const searchDateRange = async function (from, to, canonicalURL) {
 //     });
 // })();
 
-// check
+
 
 async function main() {
     await searchDateRange({

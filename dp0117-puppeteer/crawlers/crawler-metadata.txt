@@ -7,7 +7,7 @@ dp0117-jurisprudencia.ramajudicial.gov.co
 Seed URL
 ------------------
 
-
+/
 
 White Listed URL patterns
 ------------------------------

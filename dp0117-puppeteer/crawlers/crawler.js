@@ -6,7 +6,7 @@ const querystring = require("querystring");
 const cheerio = require("cheerio");
 const fs = require("fs");
 
-const {fetchWithCookies} = require("../../utils/fetcher");
+const { fetchWithCookies } = require("../../utils/fetcher");
 const puppeteerManager = require("../../utils/PuppeteerManager");
 
 
@@ -20,20 +20,20 @@ const DIVISION_LIMIT = 3;
 
 
 //<editor-fold desc="fetchPage">
-async function fetchPage({canonicalURL, requestURL, requestOptions, headers}) {
-    if (!requestOptions) requestOptions = {method: "GET", headers};
+async function fetchPage({ canonicalURL, requestURL, requestOptions, headers }) {
+    if (!requestOptions) requestOptions = { method: "GET", headers };
     if (!canonicalURL) canonicalURL = requestURL;
     if (!requestURL) requestURL = canonicalURL;
     if (requestURL.match(/^https/i)) {
-        requestOptions.agent = new https.Agent({rejectUnauthorized: false});
+        requestOptions.agent = new https.Agent({ rejectUnauthorized: false });
         console.log("using a custom agent");
     }
-    // requestOptions.redirect = "manual";
+    // requestOptions.redirect = "manual";;
     let responsePage = await fetchWithCookies(requestURL, requestOptions, "zone-g1-country-co")
         .then(response => {
             return {
                 canonicalURL,
-                request: Object.assign({URL: requestURL}, requestOptions),
+                request: Object.assign({ URL: requestURL }, requestOptions),
                 response
             };
         });
@@ -42,94 +42,94 @@ async function fetchPage({canonicalURL, requestURL, requestOptions, headers}) {
 //</editor-fold>
 
 
-const divideAndConquer = async function ({canonicalURL, start, stop}) {
+const divideAndConquer = async function ({ canonicalURL, start, stop }) {
     const page = await getNewPuppeteerPage();
-    
-    let noResults = await search({page, start, stop});
-    if ( noResults ){
+
+    let noResults = await search({ page, start, stop });
+    if (noResults) {
         // Return no results for date range
         return [];
     }
-    
+
     // Ensure that the content page has loaded with this check
     await page.waitForXPath('//b[starts-with(text(), "NR")]',
-        {visible:true, timeout: TIMEOUT})
-        .then(()=>console.log(moment().toISOString() + ` :Results page loaded`));
+        { visible: true, timeout: TIMEOUT })
+        .then(() => console.log(moment().toISOString() + ` :Results page loaded`));
     console.log(moment().toISOString() + ": xpath wait completed")
-    
+
     // Plug-in HTML and DOC url
     const html = await page.content();
     const $ = cheerio.load(html);
-    
+
     const nr = $("[color]:contains('NR:')").next().text();
     console.log(moment().toISOString() + `: nr: ${nr}`);
-    
+
     // find the range
     const startDate = moment(start);
     const stopDate = moment(stop);
-    
+
     const range = stopDate.diff(startDate, 'days')
-	
-    const { actual_total } = await getTotalNumberOfPages({page});
-    
-    if ( (actual_total > PAGINATION_LIMIT) && (range > 1) ) {
-    
-    
+
+    const { actual_total } = await getTotalNumberOfPages({ page });
+
+    if ((actual_total > PAGINATION_LIMIT) && (range > 1)) {
+
+
         let htmlPage = `<html lang="en"><head><title>Injected Links</title></head><body><div id="injectedLinks"><ol>`;
-        
-        if ( range <= DIVISION_LIMIT ) {
-            
-            for ( let day = startDate; day.isSameOrBefore(stopDate); day.add(1, 'days') ) {
+
+        if (range <= DIVISION_LIMIT) {
+
+            for (let day = startDate; day.isSameOrBefore(stopDate); day.add(1, 'days')) {
                 const link = `${BASE_URL}?start=${day.format('YYYY-MM-DD')}&stop=${day.format('YYYY-MM-DD')}`;
                 const li = `<li><a href="${link}">${link}</a></li>`;
                 htmlPage += li;
             }
-            
+
         } else {
-            const mid_range = Math.floor( (range  + 1 ) / 2);
+            const mid_range = Math.floor((range + 1) / 2);
             const lower_bound = moment(start).add(mid_range, 'days');
             const upper_bound_start = moment(start).add(mid_range + 1, 'days');
-    
+
             // Inject URLs with a smaller date range
-    
+
             const lower_range_link = `${BASE_URL}?start=${start}&stop=${lower_bound.format('YYYY-MM-DD')}`;
             const li_lower = `<li><a href="${lower_range_link}">${lower_range_link}</a></li>`;
             htmlPage += li_lower;
-    
+
             const higher_range_link = `${BASE_URL}?start=${upper_bound_start.format('YYYY-MM-DD')}&stop=${stop}`;
             const li_higher = `<li><a href="${higher_range_link}">${higher_range_link}</a></li>`;
             htmlPage += li_higher;
         }
-    
+
         htmlPage += `</ol></body></html>`;
-    
+
         const response = simpleResponse({
             canonicalURL,
             mimeType: 'text/html',
             responseBody: htmlPage
         });
-    
-        return [ response ];
+
+        return [response];
     } else {
-        return await searchByDateRange({start, stop});
+        return await searchByDateRange({ start, stop });
     }
-    
+
 }
 
-async function searchByDateRange({start, stop}) {
+async function searchByDateRange({ start, stop }) {
     const page = await getNewPuppeteerPage();
     let responses = [];
-    
-    let noResults = await search({page, start, stop});
-    if ( noResults ){
+
+    let noResults = await search({ page, start, stop });
+    if (noResults) {
         // Return no results for date
         return [];
     }
 
     // Ensure that the content page has loaded with this check
     await page.waitForXPath('//b[starts-with(text(), "NR")]',
-        {visible:true, timeout: TIMEOUT})
-        .then(()=>console.log(moment().toISOString() + ` :Results page loaded`));
+        { visible: true, timeout: TIMEOUT })
+        .then(() => console.log(moment().toISOString() + ` :Results page loaded`));
     console.log(moment().toISOString() + ": xpath wait completed")
 
     // Plug-in HTML and DOC url
@@ -140,13 +140,13 @@ async function searchByDateRange({start, stop}) {
     let dateString = $("[color]:contains('FECHA')").next().text();
     const fecha = getFormattedDate(dateString, "DD/MM/YYYY", "en");
     console.log(moment().toISOString() + `: nr: ${nr}`);
-    
-    
-    const { actual_total, display_total } = await getTotalNumberOfPages({page});
+
+
+    const { actual_total, display_total } = await getTotalNumberOfPages({ page });
     let current_page = 1;
-    
+
     // handle pagination
-    const results = await handlePagination({page, $, start, stop, nr, fecha, current_page, actual_total, display_total});
+    const results = await handlePagination({ page, $, start, stop, nr, fecha, current_page, actual_total, display_total });
     responses = [...results];
 
     // await page.browser().close();
@@ -154,30 +154,30 @@ async function searchByDateRange({start, stop}) {
 }
 
 
-async function handlePagination({page, $, start, stop, nr, fecha, current_page, actual_total, display_total}) {
+async function handlePagination({ page, $, start, stop, nr, fecha, current_page, actual_total, display_total }) {
     const results = [];
     let has_results = true;
     const nrs = new Set();
     let pageDate = fecha;
 
     while (current_page <= actual_total) {
-        
-        if ( has_results ) {
-            if ( nrs.has(nr) )
+
+        if (has_results) {
+            if (nrs.has(nr))
                 throw new Error(`Duplicate nr ${nr} on page ${current_page} between ${start} and ${stop}`);
             else
                 nrs.add(nr);
-    
+
             // Wrap elements with anchor tags
             const html_link = `https://jurisprudencia.ramajudicial.gov.co/WebRelatoria/FileReferenceServlet?corp=ce&ext=html&file=${nr}`;
             const word_link = `https://jurisprudencia.ramajudicial.gov.co/WebRelatoria/FileReferenceServlet?corp=ce&ext=doc&file=${nr}`;
-            
+
             console.log(`HTML LINK: ${html_link}`);
             console.log(`WORD LINK: ${word_link}`);
-    
+
             $('.ui-button-icon-left.ui-icon.ui-c.wordIcon').wrap(`<a href="${word_link}"></a>`);
             $('.ui-button-icon-left.ui-icon.ui-c.htmlIcon').wrap(`<a href="${html_link}"></a>`);
-    
+
             // Push into array
             let page_body = simpleResponse({
                 canonicalURL: `${BASE_URL}?date=${pageDate}&nr=${nr}&page=${current_page}`,
@@ -190,12 +190,12 @@ async function handlePagination({page, $, start, stop, nr, fecha, current_page, 
             // reset back to true
             has_results = true;
         }
-        
-        
+
+
         // Small break
         await page.waitForTimeout(PAGINATION_PAUSE);
 
-        if ( current_page < actual_total) {
+        if (current_page < actual_total) {
 
             // Click on Next page
             await page.click("#resultForm\\:j_idt145", {
@@ -204,19 +204,18 @@ async function handlePagination({page, $, start, stop, nr, fecha, current_page, 
             });
 
             // Wait for page to load
-            await page.waitForXPath(`//span[contains(text(), 'Resultado: ${++current_page} / ${display_total}')]`, {timeout : PAGINATION_WAIT})
-                .then( () => console.log(`${moment().toISOString()} : Page ${current_page} loaded`) )
-                .catch( err =>
-                    {
-                        has_results = false;
-                        console.log(`${moment().toISOString()} : ERROR: Page ${current_page} not loaded/ does not exist`);
-                    }
+            await page.waitForXPath(`//span[contains(text(), 'Resultado: ${++current_page} / ${display_total}')]`, { timeout: PAGINATION_WAIT })
+                .then(() => console.log(`${moment().toISOString()} : Page ${current_page} loaded`))
+                .catch(err => {
+                    has_results = false;
+                    console.log(`${moment().toISOString()} : ERROR: Page ${current_page} not loaded/ does not exist`);
+                }
                 );
 
             // Load new content for the next page
             const html = await page.content();
             $ = cheerio.load(html);
-    
+
             // fetch nr
             nr = $("[color]:contains('NR:')").next().text();
             let dateString = $("[color]:contains('FECHA')").next().text();
@@ -226,7 +225,7 @@ async function handlePagination({page, $, start, stop, nr, fecha, current_page, 
         }
 
     }
-    
+
     return results;
 }
 
@@ -239,68 +238,68 @@ const getNewPuppeteerPage = async function () {
     });
 }
 
-const getTotalNumberOfPages = async function ({page}) {
-    
+const getTotalNumberOfPages = async function ({ page }) {
+
     // Go to the last page
     await page.click("#resultForm\\:j_idt146")
         .then(() => console.log(moment().toISOString() + ': Going to last page'));
-    
+
     await page.waitForTimeout(NAVIGATION_WAIT)
-        .then(()=>console.log(moment().toISOString() + ` : Last page loaded`));
-	
-	
+        .then(() => console.log(moment().toISOString() + ` : Last page loaded`));
+
+
     const html = await page.content();
     const $ = cheerio.load(html);
-    
+
     const resultado = $("span[id$='pagText2']").text();
     console.log(moment().toISOString() + `: Resultado text: \n${resultado}`);
-    
-	const match_resultado = resultado.match(/Resultado:\s*(\d+)\s*\/\s*(\d+)/i);
-    
+
+    const match_resultado = resultado.match(/Resultado:\s*(\d+)\s*\/\s*(\d+)/i);
+
     // Go back to the first page
     await page.click("#resultForm\\:j_idt143")
         .then(() => console.log(moment().toISOString() + ': Going back to the first page'));
-    
+
     // Ensure that the content page has loaded with this check
     await page.waitForTimeout(NAVIGATION_WAIT)
-        .then(()=>console.log(moment().toISOString() + ` : First page reloaded`));
-    
-	if (match_resultado) {
-		let actual_total = parseInt(match_resultado[1]);
-		const display_total = parseInt(match_resultado[2]);
-		
-		actual_total = actual_total < 2 ? display_total : actual_total;
-		
-		console.log(` Actual total: ${actual_total} / Displayed total: ${display_total}`);
-		
-		return { actual_total, display_total };
-	} else {
-		throw new Error('ERROR: Could not get number of pages')
-	}
+        .then(() => console.log(moment().toISOString() + ` : First page reloaded`));
+
+    if (match_resultado) {
+        let actual_total = parseInt(match_resultado[1]);
+        const display_total = parseInt(match_resultado[2]);
+
+        actual_total = actual_total < 2 ? display_total : actual_total;
+
+        console.log(` Actual total: ${actual_total} / Displayed total: ${display_total}`);
+
+        return { actual_total, display_total };
+    } else {
+        throw new Error('ERROR: Could not get number of pages')
+    }
 }
 
-async function search({page, start, stop}) {
+async function search({ page, start, stop }) {
     let noResults = false;
     const startDate = moment(start);
     const stopDate = moment(stop);
-    
-    if ( startDate.isAfter(stopDate) ) {
+
+    if (startDate.isAfter(stopDate)) {
         noResults = true;
         return noResults;
     }
-    
+
     // Go to home page
     await page.goto('https://jurisprudencia.ramajudicial.gov.co/WebRelatoria/ce/index.xhtml', {
-            waitUntil: 'load',
-            timeout: TIMEOUT
-        })
+        waitUntil: 'load',
+        timeout: TIMEOUT
+    })
         .then(() => console.log(moment().toISOString() + ': Home page loaded!'))
-        .catch( (err) => {
-            throw(moment().toISOString() + ': Home page NOT loaded!\n' + err);
-            
-        } );
-    
-    
+        .catch((err) => {
+            throw (moment().toISOString() + ': Home page NOT loaded!\n' + err);
+
+        });
+
+
     // Enter date range
     const startDateString = startDate.format('DD/MM/YY');
     const stopDateString = stopDate.format('DD/MM/YY');
@@ -315,13 +314,13 @@ async function search({page, start, stop}) {
     console.log(moment().toISOString() + ": waiting for xpath")
 
     await page.waitForXPath('//div[@id="mainFormCE:dialogMess"]',
-        {visible: true, timeout: TIMEOUT})
+        { visible: true, timeout: TIMEOUT })
         .then(() => {
             console.log(moment().toISOString() + `: No results message detected`);
             noResults = true;
         })
         .catch(err => console.error(moment().toISOString() + `: WARNING: No results message timeout`)); // This is normal when results are found, we want this error ignored
-    
+
     return noResults;
 }
 
@@ -334,7 +333,7 @@ function getFormattedDate(dateString, formatString, locale) {
 
 
 //<editor-fold desc="downloadPDF">
-const downloadPdf = async function ({canonicalURL, headers}) {
+const downloadPdf = async function ({ canonicalURL, headers }) {
     console.warn(`downloadPdf() To download: ${canonicalURL}`);
     let customHeaders = {
         "Upgrade-Insecure-Requests": "1",
@@ -343,8 +342,8 @@ const downloadPdf = async function ({canonicalURL, headers}) {
     let _headers = Object.assign(customHeaders, headers);
 
     let method = "GET";
-    let requestOptions = {method, headers: _headers};
-    let responsePage = await fetchPage({canonicalURL, requestOptions});
+    let requestOptions = { method, headers: _headers };
+    let responsePage = await fetchPage({ canonicalURL, requestOptions });
     let type = responsePage.response.headers.get('content-type');
     type && console.log(`TYPE = ${type}`);
     if (responsePage.response.ok && /pdf|word|htm/i.test(type)) {
@@ -371,24 +370,24 @@ const downloadPdf = async function ({canonicalURL, headers}) {
 //</editor-fold>
 
 //<editor-fold desc="fetchURL">
-async function fetchURL({canonicalURL, headers}) {
+async function fetchURL({ canonicalURL, headers }) {
     console.log(`INFO: In fetchURL() - canonical URL: ${canonicalURL}`);
-    
-    if ( /localhost/i.test(canonicalURL) ) {
+
+    if (/localhost/i.test(canonicalURL)) {
         return [];
     }
 
     const match = canonicalURL.match(/start=([0-9]{4}-[0-9]{2}-[0-9]{2}).stop=([0-9]{4}-[0-9]{2}-[0-9]{2})$/);
 
-    if ( match ) {
+    if (match) {
         const start = match[1];
         const stop = match[2];
-    
-        return await divideAndConquer({canonicalURL, start, stop});
-    } else if (/\?corp=ce.ext=doc.file=.+/i.test(canonicalURL) || /\?corp=ce.ext=pdf.file=.+/i.test(canonicalURL) ) {
-        return [ await downloadPdf({canonicalURL, headers}) ];
+
+        return await divideAndConquer({ canonicalURL, start, stop });
+    } else if (/\?corp=ce.ext=doc.file=.+/i.test(canonicalURL) || /\?corp=ce.ext=pdf.file=.+/i.test(canonicalURL)) {
+        return [await downloadPdf({ canonicalURL, headers })];
     } else if (/\?corp=ce.ext=html.file=.+/i.test(canonicalURL)) {
-        return [ await fetchPage({canonicalURL, headers}) ];
+        return [await fetchPage({ canonicalURL, headers })];
     }
 
     console.error(`UNKNOWN URL: ${canonicalURL}`);
@@ -399,9 +398,9 @@ async function fetchURL({canonicalURL, headers}) {
 
 
 //<editor-fold desc="DO NOT SHIP THIS TO ICEBERG">
-function simpleResponse({canonicalURL, mimeType, responseBody}) {
-    console. log(`Saved ${canonicalURL}`);
-    return {canonicalURL, mimeType, responseBody};
+function simpleResponse({ canonicalURL, mimeType, responseBody }) {
+    console.log(`Saved ${canonicalURL}`);
+    return { canonicalURL, mimeType, responseBody };
 }
 
 function timestamp() {
@@ -410,15 +409,15 @@ function timestamp() {
 
 (async () => {
     const canonicalURL = 'https://jurisprudencia.ramajudicial.gov.co/WebRelatoria/ce/index.xhtml?start=2019-01-01&stop=2019-12-31';
-    const responses = await fetchURL({canonicalURL, headers: {}});
-    
+    const responses = await fetchURL({ canonicalURL, headers: {} });
+
     console.log('Got ' + responses.length + ' page(s)');
-    
-    
+
+
     for (let i = 0; i < responses.length; i++) {
         const html = responses[i].responseBody;
-        
-        fs.writeFileSync(`../files/results_${timestamp()}_${i+1}.html`, html);
+
+        fs.writeFileSync(`../files/results_${timestamp()}_${i + 1}.html`, html);
     }
 })();
 //</editor-fold>

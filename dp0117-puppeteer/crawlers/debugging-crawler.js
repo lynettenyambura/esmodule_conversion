@@ -6,7 +6,7 @@ const querystring = require("querystring");
 const cheerio = require("cheerio");
 const fs = require("fs");
 
-const {fetchWithCookies} = require("../../utils/fetcher");
+const { fetchWithCookies } = require("../../utils/fetcher");
 const puppeteerManager = require("../../utils/PuppeteerManager");
 
 /**
@@ -22,12 +22,12 @@ const DIVISION_LIMIT = 3;
 
 
 //<editor-fold desc="fetchPage">
-async function fetchPage({canonicalURL, requestURL, requestOptions, headers}) {
-    if (!requestOptions) requestOptions = {method: "GET", headers};
+async function fetchPage({ canonicalURL, requestURL, requestOptions, headers }) {
+    if (!requestOptions) requestOptions = { method: "GET", headers };
     if (!canonicalURL) canonicalURL = requestURL;
     if (!requestURL) requestURL = canonicalURL;
     if (requestURL.match(/^https/i)) {
-        requestOptions.agent = new https.Agent({rejectUnauthorized: false});
+        requestOptions.agent = new https.Agent({ rejectUnauthorized: false });
         console.log("using a custom agent");
     }
     // requestOptions.redirect = "manual";
@@ -35,7 +35,7 @@ async function fetchPage({canonicalURL, requestURL, requestOptions, headers}) {
         .then(response => {
             return {
                 canonicalURL,
-                request: Object.assign({URL: requestURL}, requestOptions),
+                request: Object.assign({ URL: requestURL }, requestOptions),
                 response
             };
         });
@@ -44,19 +44,19 @@ async function fetchPage({canonicalURL, requestURL, requestOptions, headers}) {
 //</editor-fold>
 
 
-const divideAndConquer = async function ({canonicalURL, start, stop}) {
+const divideAndConquer = async function ({ canonicalURL, start, stop }) {
     const page = await puppeteerManager.newPage();
-    
-    let noResults = await search({page, start, stop});
+
+    let noResults = await search({ page, start, stop });
     const html = await page.content();
     const response = simpleResponse({
         canonicalURL,
         mimeType: 'text/html',
         responseBody: html
     });
-    
-    return [ response ];
-    
+
+    return [response];
+
     /*if ( noResults ){
         // Return no results for date range
         return [];
@@ -125,23 +125,23 @@ const divideAndConquer = async function ({canonicalURL, start, stop}) {
     } else {
         return await searchByDateRange({start, stop});
     }*/
-    
+
 }
 
-async function searchByDateRange({start, stop}) {
+async function searchByDateRange({ start, stop }) {
     const page = await puppeteerManager.newPage();
     let responses = [];
-    
-    let noResults = await search({page, start, stop});
-    if ( noResults ){
+
+    let noResults = await search({ page, start, stop });
+    if (noResults) {
         // Return no results for date
         return [];
     }
 
     // Ensure that the content page has loaded with this check
     await page.waitForXPath('//b[starts-with(text(), "NR")]',
-        {visible:true, timeout: TIMEOUT})
-        .then(()=>console.log(moment().toISOString() + ` :Results page loaded`));
+        { visible: true, timeout: TIMEOUT })
+        .then(() => console.log(moment().toISOString() + ` :Results page loaded`));
     console.log(moment().toISOString() + ": xpath wait completed")
 
     // Plug-in HTML and DOC url
@@ -151,11 +151,11 @@ async function searchByDateRange({start, stop}) {
     const nr = $("[color]:contains('NR:')").next().text();
     console.log(moment().toISOString() + `: nr: ${nr}`);
 
-    
-    let {current_page, total_pages} = getNumberOfPages({$});
-    
+
+    let { current_page, total_pages } = getNumberOfPages({ $ });
+
     // handle pagination
-    const results = await handlePagination({page, $, start, stop, nr, current_page, total_pages});
+    const results = await handlePagination({ page, $, start, stop, nr, current_page, total_pages });
     responses = [...results];
 
     // await page.browser().close();
@@ -163,7 +163,7 @@ async function searchByDateRange({start, stop}) {
 }
 
 
-async function handlePagination({page, $, start, stop, nr, current_page, total_pages}) {
+async function handlePagination({ page, $, start, stop, nr, current_page, total_pages }) {
     const results = [];
     let has_results = true;
 
@@ -183,18 +183,18 @@ async function handlePagination({page, $, start, stop, nr, current_page, total_p
             responseBody: $.html(),
         });
 
-        if ( has_results ) {
+        if (has_results) {
             results.push(page_body);
         } else {
             // reset back to true
             has_results = true;
         }
-        
-        
+
+
         // Small break
         await page.waitForTimeout(1000);
 
-        if ( current_page < total_pages) {
+        if (current_page < total_pages) {
 
             // Click on Next page
             await page.click("#resultForm\\:j_idt145", {
@@ -204,12 +204,11 @@ async function handlePagination({page, $, start, stop, nr, current_page, total_p
 
             // Wait for page to load
             await page.waitForXPath(`//span[contains(text(), 'Resultado: ${++current_page} / ${total_pages}')]`)
-                .then( () => console.log(`${moment().toISOString()} : Page ${current_page} loaded`) )
-                .catch( err =>
-                    {
-                        has_results = false;
-                        console.log(`${moment().toISOString()} : ERROR: Page ${current_page} not loaded/ does not exist`, err);
-                    }
+                .then(() => console.log(`${moment().toISOString()} : Page ${current_page} loaded`))
+                .catch(err => {
+                    has_results = false;
+                    console.log(`${moment().toISOString()} : ERROR: Page ${current_page} not loaded/ does not exist`, err);
+                }
                 );
 
             // Load new content for the next page
@@ -220,40 +219,40 @@ async function handlePagination({page, $, start, stop, nr, current_page, total_p
         }
 
     }
-    
+
     return results;
 }
 
 
 //<editor-fold desc="Convenience functions">
-const getNumberOfPages = function ({$}) {
+const getNumberOfPages = function ({ $ }) {
     const resultado = $("span[id$='pagText2']").text();
     console.log(moment().toISOString() + `: Resultado text: \n${resultado}`);
-    
+
     const match_resultado = resultado.match(/Resultado:\s*(\d+)\s*\/\s*(\d+)/i);
     if (match_resultado) {
         let current_page = parseInt(match_resultado[1]);
         const total_pages = parseInt(match_resultado[2]);
-        
+
         console.log(`${current_page} / ${total_pages}`);
-        
-        return {current_page, total_pages};
+
+        return { current_page, total_pages };
     } else {
         throw new Error('ERROR: Could not get number of pages')
     }
 }
 
 
-async function search({page, start, stop}) {
+async function search({ page, start, stop }) {
     let noResults = false;
     const startDate = moment(start);
     const stopDate = moment(stop);
-    
-    if ( startDate.isAfter(stopDate) ) {
+
+    if (startDate.isAfter(stopDate)) {
         noResults = true;
         return noResults;
     }
-    
+
     // Go to home page
     await page.goto('https://jurisprudencia.ramajudicial.gov.co/WebRelatoria/ce/index.xhtml', {
         waitUntil: 'load',
@@ -261,7 +260,7 @@ async function search({page, start, stop}) {
     }).catch((err) => {
         console.error("ERROR: Home Page did not load.", err);
     });
-    
+
     // Enter date range
     const startDateString = startDate.format('DD/MM/YY');
     const stopDateString = stopDate.format('DD/MM/YY');
@@ -288,7 +287,7 @@ async function search({page, start, stop}) {
 
 
 //<editor-fold desc="downloadPDF">
-const downloadPdf = async function ({canonicalURL, headers}) {
+const downloadPdf = async function ({ canonicalURL, headers }) {
     console.warn(`downloadPdf() To download: ${canonicalURL}`);
     let customHeaders = {
         "Upgrade-Insecure-Requests": "1",
@@ -297,8 +296,8 @@ const downloadPdf = async function ({canonicalURL, headers}) {
     let _headers = Object.assign(customHeaders, headers);
 
     let method = "GET";
-    let requestOptions = {method, headers: _headers};
-    let responsePage = await fetchPage({canonicalURL, requestOptions});
+    let requestOptions = { method, headers: _headers };
+    let responsePage = await fetchPage({ canonicalURL, requestOptions });
     let type = responsePage.response.headers.get('content-type');
     type && console.log(`TYPE = ${type}`);
     if (responsePage.response.ok && /pdf|word/i.test(type)) {
@@ -325,20 +324,20 @@ const downloadPdf = async function ({canonicalURL, headers}) {
 //</editor-fold>
 
 //<editor-fold desc="fetchURL">
-async function fetchURL({canonicalURL, headers}) {
+async function fetchURL({ canonicalURL, headers }) {
     console.log(`INFO: In fetchURL() - canonical URL: ${canonicalURL}`);
 
     const match = canonicalURL.match(/start=([0-9]{4}-[0-9]{2}-[0-9]{2}).stop=([0-9]{4}-[0-9]{2}-[0-9]{2})$/);
 
-    if ( match ) {
+    if (match) {
         const start = match[1];
         const stop = match[2];
-        
-        return await divideAndConquer({canonicalURL, start, stop});
-    } else if (/\?corp=ce.ext=doc.file=.+/i.test(canonicalURL) || /\?corp=ce.ext=pdf.file=.+/i.test(canonicalURL) ) {
-        return [ await downloadPdf({canonicalURL, headers}) ];
+
+        return await divideAndConquer({ canonicalURL, start, stop });
+    } else if (/\?corp=ce.ext=doc.file=.+/i.test(canonicalURL) || /\?corp=ce.ext=pdf.file=.+/i.test(canonicalURL)) {
+        return [await downloadPdf({ canonicalURL, headers })];
     } else if (/\?corp=ce.ext=html.file=.+/i.test(canonicalURL)) {
-        return [ await fetchPage({canonicalURL, headers}) ];
+        return [await fetchPage({ canonicalURL, headers })];
     }
 
     throw new Error(`UNKNOWN URL: ${canonicalURL}`);
@@ -349,9 +348,9 @@ async function fetchURL({canonicalURL, headers}) {
 
 
 //<editor-fold desc="DO NOT SHIP THIS TO ICEBERG">
-function simpleResponse({canonicalURL, mimeType, responseBody}) {
-    console. log(`Saved ${canonicalURL}`);
-    return {canonicalURL, mimeType, responseBody};
+function simpleResponse({ canonicalURL, mimeType, responseBody }) {
+    console.log(`Saved ${canonicalURL}`);
+    return { canonicalURL, mimeType, responseBody };
 }
 
 function timestamp() {
@@ -360,15 +359,15 @@ function timestamp() {
 
 (async () => {
     const canonicalURL = 'https://jurisprudencia.ramajudicial.gov.co/WebRelatoria/ce/index.xhtml?start=2020-10-01&stop=2020-10-31';
-    const responses = await fetchURL({canonicalURL, headers: {}});
-    
+    const responses = await fetchURL({ canonicalURL, headers: {} });
+
     console.log('Got ' + responses.length + ' page(s)');
-    
-    
+
+
     for (let i = 0; i < responses.length; i++) {
         const html = responses[i].responseBody;
-        
-        fs.writeFileSync(`../files/results_${timestamp()}_${i+1}.html`, html);
+
+        fs.writeFileSync(`../files/results_${timestamp()}_${i + 1}.html`, html);
     }
 })();
 //</editor-fold>
