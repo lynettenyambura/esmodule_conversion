@@ -1,18 +1,18 @@
 "use strict";
 
-// const querystring = require("querystring");
-// const he = require("he");
-// const cheerio = require("cheerio");
-// const fs = require("fs");
-// const mkdirp = require("mkdirp");
 import querystring from "querystring";
 import he from "he";
 import cheerio from "cheerio";
 import fs from 'fs';
 import path from 'path';
-// import { dirname } from 'path';
-// import { fileURLToPath } from 'url';
-import mkdirp from "mkdirp";
+
+import { mkdirp } from 'mkdirp'
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 
 /**
@@ -177,14 +177,7 @@ const curlContentParser = function ({ curlString, requestIndex, functionPrefix =
     return generatedCode;
 };
 
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
-
-// Get the directory of the current module
-const currentDir = path.dirname(new URL(import.meta.url).pathname);
-
-// Construct the path to the "projects.txt" file
-const filePath = path.join(currentDir, "/./pdf/dp16632.txt");
+const filePath = path.join(__dirname, 'pdf', 'dp16632.txt');
 
 const generateCode = function () {
 
@@ -198,30 +191,14 @@ const generateCode = function () {
         return;
     }
     contents = contents.toString().replace(/\s*[\\^]\s*\n\s*/ig, " ").split(/\n/g).filter(ln => ln.trim());
-    // let generatedCode = `"use strict";\n\nconst querystring = require("querystring");\n`
-    //     + `const FormData = require("form-data");\n`
-    //     + `const moment = require('moment');\n`
-    //     + `const url = require('url');\n`
-    //     + `const cheerio = require('cheerio');\n`
-    //     + `const fetch = require('node-fetch');//to reconstruct response fetch.Response(html,....)\n\n`
-    //     + `const fetcher = require("../../utils/fetcher");\n`
-    //     + `let fetchWithCookies = fetcher.fetchWithCookies;\n`
-    //     + `// let fetch = fetcher.fetch;//only use fetchWithCookies or defaultFetchURL for Tests\n`
-    //     + `let defaultFetchURL = fetcher.defaultFetchURL;\n\n\n`
-    //     + `let map = {};\n\n`
-    //     + `function setSharedVariable(key, value) { map[key] = value; }\n\n`
-    //     + `function getSharedVariable(key) {return map[key];}\n\n\n\n`;
-    // generatedCode += fetchPage.toString();
+
     let generatedCode = `"use strict";\n\nimport querystring from "querystring";\n`
         + `import FormData from "form-data";\n`
         + `import moment from "moment";\n`
-        + `import * as url from "url";\n`
-        + `import cheerio from "cheerio";\n`
-        + `import fetch from "node-fetch"; // to reconstruct response fetch.Response(html,...)\n\n`
-        + `import fetcher from "../.g./utils/fetcher";\n`
-        + `let fetchWithCookies = fetcher.fetchWithCookies;\n`
-        + `// let fetch = fetcher.fetch; // only use fetchWithCookies or defaultFetchURL for Tests\n`
-        + `let defaultFetchURL = fetcher.defaultFetchURL;\n\n\n`
+        + `import {load} from "cheerio";\n`
+        + `import url from "url";\n`
+        + `import fetch from "node-fetch";\n\n`
+        + `import { fetchWithCookies, defaultFetchURL } from '../../utils/fetcher.js'\n\n`
         + `let map = {};\n\n`
         + `function setSharedVariable(key, value) { map[key] = value; }\n\n`
         + `function getSharedVariable(key) { return map[key]; }\n\n\n\n`;
@@ -241,7 +218,7 @@ const generateCode = function () {
         let name = FILE.match(/[^\/\\]+$/)[0];
         name = name.replace(/\..{2,4}$/, "");
         //let dir = __dirname + "/../" + name + "/http/";
-        const dir = path.resolve(path.dirname(import.meta.url), "..", name, "http");
+        const dir = path.resolve(__dirname, "..", name, "http");
         mkdirp.sync(dir);
         //fs.writeFileSync(dir + 'fetch.js', generatedCode);
         fs.writeFileSync(path.join(dir, 'fetch.js'), generatedCode);
