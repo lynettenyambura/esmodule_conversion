@@ -1,0 +1,23 @@
+
+Crawler Name
+------------------------------
+dp0117-jurisprudencia.ramajudicial.gov.co
+
+
+Seed URL
+------------------
+
+
+
+White Listed URL patterns
+------------------------------
+https?://jurisprudencia\.ramajudicial\.gov\.co/WebRelatoria/FileReferenceServlet\?corp=ce.ext=html.file=.+
+https?://jurisprudencia\.ramajudicial\.gov\.co/WebRelatoria/FileReferenceServlet\?corp=ce.ext=doc.file=.+
+
+
+CanonicalURLs for fetchURL
+--------------------------------
+https://jurisprudencia.ramajudicial.gov.co?date=[0-9]{4}-[0-9]{2}-[0-9]{2}
+https://jurisprudencia.ramajudicial.gov.co?date=[0-9]{4}-[0-9]{2}-[0-9]{2}.nr=[0-9]+.page=[0-9]+
+
+
