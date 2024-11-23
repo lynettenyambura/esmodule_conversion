@@ -1,17 +1,16 @@
 "use strict";
 
-// const moment = require("moment");
-// const cheerio = require("cheerio");
-// const url = require("url");
-// const querystring = require("querystring");
-
 import moment from "moment";
 import { load } from "cheerio";
 import url from 'url';
 import querystring from 'querystring';
 import fs from 'fs'
 import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const sanitizeHtml = (x) => x;
 
 function parsePage({ responseBody, URL, html, referer }) {
@@ -160,11 +159,9 @@ function parsePage({ responseBody, URL, html, referer }) {
 }
 
 const parserTest = function () {
-  // const fs = require("fs");
-  const currentDir = path.dirname(new URL(import.meta.url).pathname);
-  const filePath = path.join(currentDir, "/./pdf/links-text.txt");
+  const filePath = path.join(__dirname, 'pdf', 'links-text.txt');
+
   let buffer = fs.readFileSync(filePath)
-  // let buffer = fs.readFileSync(__dirname + "/./pdf/links-text.txt");
   buffer = parsePage({
     responseBody: { content: buffer.toString(), buffer, fileFormat: "text/html" },
     URL: "",

@@ -1,10 +1,13 @@
 "use strict";
-// const fs = require("fs");
-// const cheerio = require("cheerio");
 
 import fs from 'fs'
 import { load } from 'cheerio';
 import path from 'path';
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 let links = `https://normasapf.funcionpublica.gob.mx/NORMASAPF/restricted/General.jsf?from=2022-08-01&to=2022-09-28
 https://normasapf.funcionpublica.gob.mx/NORMASAPF/restricted/General.jsf?from=2022-01-01&to=2022-08-01
@@ -43,6 +46,5 @@ for (let i = 0; i < links.length; i++) {
     div.append(` <a href="${link}">${(i + 1)}</a> ${(i && i % 15 === 0 ? "<br/>" : "")}`)
 }
 
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
-fs.writeFileSync(path.join(__dirname, '/./pdf/links.html'), $.html())
-// fs.writeFileSync(__dirname + "/./pdf/links.html", $.html())
+fs.writeFileSync(path.join(__dirname, 'pdf', 'links.html'), $.html())
+

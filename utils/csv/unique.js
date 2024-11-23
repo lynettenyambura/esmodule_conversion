@@ -1,17 +1,19 @@
 "use strict";
 
-// const csv = require("csv-parse/sync");
 import { parse } from "csv-parse/sync";
 import fs from 'fs';
 import path from "path";
-// const fs = require("fs");
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
+console.log(__dirname)
+const filePath = path.join(__dirname, 'pdf', 'chubut.csv');
 
 const columns = ['section']
 
-// let pathToCSV = __dirname + `/pdf/chubut.csv`;
-let pathToCSV = path.join(__dirname, 'pdf', 'chubut.csv')
+let pathToCSV = path.join(filePath)
 let csvString = fs.readFileSync(pathToCSV);
 
 let rows = parse(csvString, {

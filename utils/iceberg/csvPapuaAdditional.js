@@ -1,14 +1,15 @@
 "use strict";
 
-// const csv = require("csv-parse/sync");
-// const fs = require("fs");
+
 import { parse } from "csv-parse/sync";
 import fs from 'fs';
 import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-// let pathToCSV = __dirname + `/pdf/png.csv`;
 let pathToCSV = path.join(__dirname, 'pdf', 'png.csv')
 let icbgCsv = fs.readFileSync(pathToCSV);
 
@@ -47,4 +48,3 @@ console.log(JSON.stringify(problematic, null, 4));
 
 fs.writeFileSync(path.join(__dirname, 'pdf', 'problematic.json'), JSON.stringify(problematic, null, 4));
 
-// fs.writeFileSync(__dirname + `/pdf/problematic.json`, JSON.stringify(problematic, null, 4));

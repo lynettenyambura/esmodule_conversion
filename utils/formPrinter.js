@@ -1,8 +1,5 @@
 "use strict";
 
-// const cheerio = require("cheerio");
-// const fs = require("fs");
-
 import { load } from "cheerio";
 import fs from 'fs';
 

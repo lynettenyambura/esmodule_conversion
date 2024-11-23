@@ -1,8 +1,5 @@
 "use strict";
 
-// const moment = require("moment");
-// const cheerio = require("cheerio");
-// const puppeteer = require("puppeteer");
 
 import moment from "moment";
 import { load } from "cheerio";

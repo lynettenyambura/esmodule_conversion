@@ -1,12 +1,5 @@
 "use strict";
 
-// const querystring = require("querystring");
-// const FormData = require("form-data");
-// const moment = require('moment');
-// const url = require('url');
-// const cheerio = require('cheerio');
-// const fetch = require('node-fetch');//to reconstruct response fetch.Response(html,....)
-
 import querystring from 'querystring';
 import FormData from 'form-data';
 import moment from 'moment';
@@ -16,18 +9,14 @@ import fetch from 'node-fetch';
 
 import { fetchWithCookies, defaultFetchURL } from '../../utils/fetcher';
 
-// const fetcher = require("../../utils/fetcher");
-// let fetchWithCookies = fetcher.fetchWithCookies;
-// let fetch = fetcher.fetch;//only use fetchWithCookies or defaultFetchURL for Tests
-// let defaultFetchURL = fetcher.defaultFetchURL;
 
+// let fetch = fetcher.fetch;//only use fetchWithCookies or defaultFetchURL for Tests
 
 function setSharedVariable(key, value) {
 }
 
 function getSharedVariable(key) {
 }
-
 
 async function fetchPage({ canonicalURL, requestURL, requestOptions, headers }) {
     if (!requestOptions) requestOptions = { method: "GET", headers };
