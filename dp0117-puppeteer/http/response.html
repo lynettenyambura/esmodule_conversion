@@ -1,0 +1,270 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+                <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+                <title>Consulta de Jurisprudencia - Consejo de Estado</title>
+                
+                    <!-- Script Tematres -->
+                    <link href="http://190.217.24.78:8888/api/tematres.css" rel="stylesheet" type="text/css" media="all" />
+                    <script src="http://190.217.24.78:8888/api/tematres.js" type="text/javascript"></script>
+                
+                    <script src="https://www.googletagmanager.com/gtag/js?id=UA-37140588-1" async="true"></script>
+                    <script>
+                      window.dataLayer = window.dataLayer || [];
+                      function gtag(){dataLayer.push(arguments);}
+                      gtag('js', new Date());
+
+                      gtag('config', 'UA-37140588-1');
+                    </script><link type="text/css" rel="stylesheet" href="/WebRelatoria/javax.faces.resource/theme.css.xhtml?ln=primefaces-aristo" /><link type="text/css" rel="stylesheet" href="/WebRelatoria/javax.faces.resource/primefaces.css.xhtml;jsessionid=D7DAFC0AB3209977E98BB2CC20E31D61?ln=primefaces&amp;v=5.0" /><script type="text/javascript" src="/WebRelatoria/javax.faces.resource/jquery/jquery.js.xhtml;jsessionid=D7DAFC0AB3209977E98BB2CC20E31D61?ln=primefaces&amp;v=5.0"></script><script type="text/javascript" src="/WebRelatoria/javax.faces.resource/jquery/jquery-plugins.js.xhtml;jsessionid=D7DAFC0AB3209977E98BB2CC20E31D61?ln=primefaces&amp;v=5.0"></script><script type="text/javascript" src="/WebRelatoria/javax.faces.resource/primefaces.js.xhtml;jsessionid=D7DAFC0AB3209977E98BB2CC20E31D61?ln=primefaces&amp;v=5.0"></script><link type="text/css" rel="stylesheet" href="/WebRelatoria/javax.faces.resource/layout/layout.css.xhtml;jsessionid=D7DAFC0AB3209977E98BB2CC20E31D61?ln=primefaces&amp;v=5.0" /><script type="text/javascript" src="/WebRelatoria/javax.faces.resource/layout/layout.js.xhtml;jsessionid=D7DAFC0AB3209977E98BB2CC20E31D61?ln=primefaces&amp;v=5.0"></script><script type="text/javascript" src="/WebRelatoria/javax.faces.resource/hotkey/hotkey.js.xhtml;jsessionid=D7DAFC0AB3209977E98BB2CC20E31D61?ln=primefaces&amp;v=5.0"></script><link type="text/css" rel="stylesheet" href="/WebRelatoria/javax.faces.resource/scrollpanel/scrollpanel.css.xhtml;jsessionid=D7DAFC0AB3209977E98BB2CC20E31D61?ln=primefaces&amp;v=5.0" /><script type="text/javascript" src="/WebRelatoria/javax.faces.resource/scrollpanel/scrollpanel.js.xhtml;jsessionid=D7DAFC0AB3209977E98BB2CC20E31D61?ln=primefaces&amp;v=5.0"></script>
+            <link href="../css/style_orig.css" rel="stylesheet" type="text/css" media="all" /><script type="text/javascript">
+                // <![CDATA[
+                $ = jQuery;
+                $(document).ready(function() {
+                    $("[data-popterms-server]").click(function(){
+                        
+                        var e = $(this) , x = e.data("popterms-server") , y = e.data("popterms-vocabulary") , z = e.data("popterms-target") , aa = $(z);
+                        var url = x + "?search_param=all&arg=" + aa.val() + "&task=search";
+                        var width = 450;
+                        var height = 600;
+
+                        if (aa.val().trim().length < 1) {
+                            alert("Debe digitar algún criterio de búsqueda");
+                            return !1;
+                        }
+                        openTerms(url);
+                        function popupCenter(url, title, w, h) {
+                            var left = window.screenLeft ? window.screenLeft : window.screenX;
+                            var top = window.screenTop ? window.screenTop : window.screenY;
+                            var x = (window.innerWidth - w) / 2 + left;
+                            var y = (window.innerHeight - h) / 2 + top;
+                            var f = "directories=no,menubar=no,status=no,toolbar=no,location=no,scrollbars=yes,";
+                            f += "height=" + h + ",width=" + w + ",left=" + x + ",top=" + y;
+                            return window.open(url, title, f);
+                        }
+
+                        var popup;
+                        function openTerms(url){
+                            popup = popupCenter(url, "Vocabulary", width, height);
+                            popup.focus();
+                            return false;
+                        }
+                        
+                        window.addEventListener("message", function (e) {
+                            var data = e.data;
+                            aa.val(data.term) , popup.close();
+                        }, false);       
+                    });
+                });
+                // ]]></script></head><body><script type="text/javascript" src="/WebRelatoria/javax.faces.resource/calendar_es.js.xhtml;jsessionid=D7DAFC0AB3209977E98BB2CC20E31D61?ln=js"></script>
+<form id="mainFormCE" name="mainFormCE" method="post" action="/WebRelatoria/ce/index.xhtml;jsessionid=D7DAFC0AB3209977E98BB2CC20E31D61" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="mainFormCE" value="mainFormCE" />
+<div id="mainFormCE:warningMessage" class="ui-dialog ui-widget ui-widget-content ui-overlay-hidden ui-corner-all ui-shadow"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="mainFormCE:warningMessage_title" class="ui-dialog-title"></span></div><div class="ui-dialog-content ui-widget-content"></div></div><script id="mainFormCE:warningMessage_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","warndlg",{id:"mainFormCE:warningMessage",widgetVar:"warndlg",resizable:false,modal:true,width:"460",height:"40",dynamic:true});});</script><div id="mainFormCE:timeoutMessage" class="ui-dialog ui-widget ui-widget-content ui-overlay-hidden ui-corner-all ui-shadow"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="mainFormCE:timeoutMessage_title" class="ui-dialog-title"></span></div><div class="ui-dialog-content ui-widget-content"></div></div><script id="mainFormCE:timeoutMessage_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","timeoutdlg",{id:"mainFormCE:timeoutMessage",widgetVar:"timeoutdlg",resizable:false,modal:true,width:"450",height:"50",dynamic:true});});</script><div id="mainFormCE:dialogMess" class="ui-dialog ui-widget ui-widget-content ui-overlay-hidden ui-corner-all ui-shadow messDLG"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="mainFormCE:dialogMess_title" class="ui-dialog-title"></span><a href="#" class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all"><span class="ui-icon ui-icon-closethick"></span></a></div><div class="ui-dialog-content ui-widget-content"><table id="mainFormCE:dialogMessPanel" style="margin: 0px auto;">
+<tbody>
+<tr>
+<td><div id="mainFormCE:messages" class="ui-messages ui-widget" aria-live="polite"></div></td>
+</tr>
+</tbody>
+</table>
+</div></div><script id="mainFormCE:dialogMess_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","messdlg",{id:"mainFormCE:dialogMess",widgetVar:"messdlg",resizable:false,modal:true});});</script><div id="mainFormCE:dialogWaitCE" class="ui-dialog ui-widget ui-widget-content ui-overlay-hidden ui-corner-all ui-shadow waitDLG"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="mainFormCE:dialogWaitCE_title" class="ui-dialog-title">Procesando...</span></div><div class="ui-dialog-content ui-widget-content"></div></div><script id="mainFormCE:dialogWaitCE_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","waitdlgce",{id:"mainFormCE:dialogWaitCE",widgetVar:"waitdlgce",resizable:false,modal:true,dynamic:true});});</script><div id="mainFormCE:dialogWaitStop" class="ui-dialog ui-widget ui-widget-content ui-overlay-hidden ui-corner-all ui-shadow waitDLG"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="mainFormCE:dialogWaitStop_title" class="ui-dialog-title">Procesando...</span></div><div class="ui-dialog-content ui-widget-content"></div></div><script id="mainFormCE:dialogWaitStop_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","waitdlgstop",{id:"mainFormCE:dialogWaitStop",widgetVar:"waitdlgstop",resizable:false,modal:true,dynamic:true});});</script><div id="mainFormCE:dialogInfo" class="ui-dialog ui-widget ui-widget-content ui-overlay-hidden ui-corner-all ui-shadow"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="mainFormCE:dialogInfo_title" class="ui-dialog-title"></span><a href="#" class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all"><span class="ui-icon ui-icon-closethick"></span></a></div><div class="ui-dialog-content ui-widget-content"></div></div><script id="mainFormCE:dialogInfo_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","infodlg",{id:"mainFormCE:dialogInfo",widgetVar:"infodlg",modal:true,width:"750",height:"500",dynamic:true});});</script><div id="mainFormCE:dialogListCE" class="ui-dialog ui-widget ui-widget-content ui-overlay-hidden ui-corner-all ui-shadow"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="mainFormCE:dialogListCE_title" class="ui-dialog-title">Selección de listado</span><a href="#" class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all"><span class="ui-icon ui-icon-closethick"></span></a></div><div class="ui-dialog-content ui-widget-content"></div></div><script id="mainFormCE:dialogListCE_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","listdlg",{id:"mainFormCE:dialogListCE",widgetVar:"listdlg",modal:true,dynamic:true});});</script><div id="mainFormCE:dialogMail" class="ui-dialog ui-widget ui-widget-content ui-overlay-hidden ui-corner-all ui-shadow"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="mainFormCE:dialogMail_title" class="ui-dialog-title">Envio de correo</span><a href="#" class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all"><span class="ui-icon ui-icon-closethick"></span></a></div><div class="ui-dialog-content ui-widget-content"></div></div><script id="mainFormCE:dialogMail_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","maildlg",{id:"mainFormCE:dialogMail",widgetVar:"maildlg",resizable:false,modal:true,dynamic:true});});</script><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:0" value="5045970684989329350:543765650508937854" autocomplete="off" />
+</form><script id="j_idt43_s" type="text/javascript">$(function(){PrimeFaces.cw("Layout","pageLayout",{id:"j_idt43",widgetVar:"pageLayout",south:{paneSelector:'#j_idt52',size:"5",resizable:false,closable:false},west:{paneSelector:'#searchItems',size:"508",resizable:true,closable:true,spacing_open:6,spacing_closed:25},center:{paneSelector:'#resultUnit',size:"auto",resizable:false,closable:false},behaviors:{toggle:function(ext) {PrimeFaces.ab({s:'j_idt43',e:'toggle',p:'j_idt43',u:'resultForm:hidebutton resultForm:hidebutton2 resultForm:jurisTable'},ext);}}},"layout");});</script><div id="j_idt43" style="height: 815px;"><div id="j_idt52" class="ui-layout-unit ui-widget ui-widget-content ui-corner-all ui-layout-south"><div class="ui-layout-unit-content ui-widget-content"><html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Portal Rama Judicial del Poder Público</title>
+        <link href="../css/styles_rj.css" rel="stylesheet" type="text/css" media="all" />
+    </head>
+    <body>
+        <div id="mainDivCE">
+                <h1 class="logoxce2"></h1>
+        </div>
+    </body>
+</html></div></div><div id="searchItems" class="ui-layout-unit ui-widget ui-widget-content ui-corner-all ui-layout-west" style="background-color: #F0F0F0;"><div class="ui-layout-unit-header ui-widget-header ui-corner-all"><span class="ui-layout-unit-header-title">Criterios de búsqueda</span><a href="javascript:void(0)" class="ui-layout-unit-header-icon ui-state-default ui-corner-all" title="Collapse"><span class="ui-icon ui-icon-triangle-1-w"></span></a></div><div class="ui-layout-unit-content ui-widget-content">
+<form id="searchForm" name="searchForm" method="post" action="/WebRelatoria/ce/index.xhtml;jsessionid=D7DAFC0AB3209977E98BB2CC20E31D61" enctype="application/x-www-form-urlencoded" style="background-color: #F0F0F0;">
+<input type="hidden" name="searchForm" value="searchForm" />
+<script type="text/javascript">$(function() {$(document).bind('keydown', 'intro', function(){PrimeFaces.ab({s:'searchForm:j_idt54',f:'searchForm',u:'resultForm:jurisTable'});;return false;});});</script><table width="100%">
+<tbody>
+<tr>
+<td class="halfPanelColumn"><button id="searchForm:j_idt56" name="searchForm:j_idt56" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left searchButton" onclick="PF('waitdlgstop').show();PrimeFaces.ab({s:'searchForm:j_idt56',u:'resultForm:jurisTable resultForm:pagText resultForm:pagText2'});return false;" type="submit"><span class="ui-button-icon-left ui-icon ui-c searchIcon"></span><span class="ui-button-text ui-c">Buscar</span></button><script id="searchForm:j_idt56_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_searchForm_j_idt56",{id:"searchForm:j_idt56",widgetVar:"widget_searchForm_j_idt56"});</script></td>
+<td><button id="searchForm:j_idt57" name="searchForm:j_idt57" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only clearButton" onclick="PrimeFaces.ab({s:'searchForm:j_idt57',u:'resultForm:jurisTable searchForm'});return false;" type="submit"><span class="ui-button-text ui-c">Nueva Búsqueda</span></button><script id="searchForm:j_idt57_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_searchForm_j_idt57",{id:"searchForm:j_idt57",widgetVar:"widget_searchForm_j_idt57"});</script></td>
+</tr>
+</tbody>
+</table>
+<fieldset id="searchForm:set-tipo" class="ui-fieldset ui-widget ui-widget-content ui-corner-all ui-hidden-container" style="width: 455px;" data-widget="widget_searchForm_set_tipo"><legend class="ui-fieldset-legend ui-corner-all ui-state-default">Tipo de providencia</legend><div class="ui-fieldset-content"><table id="searchForm:j_idt58" class="ui-selectmanycheckbox ui-widget choicesSmall" style="width: 100%;"><tr><td><div class="ui-chkbox ui-widget"><div class="ui-helper-hidden-accessible"><input id="searchForm:j_idt58:0" name="searchForm:j_idt58" type="checkbox" value="AUTO" /></div><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default"><span class="ui-chkbox-icon ui-c"></span></div></div></td><td><label for="searchForm:j_idt58:0">Auto</label></td><td><div class="ui-chkbox ui-widget"><div class="ui-helper-hidden-accessible"><input id="searchForm:j_idt58:1" name="searchForm:j_idt58" type="checkbox" value="CONCEPTO" /></div><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default"><span class="ui-chkbox-icon ui-c"></span></div></div></td><td><label for="searchForm:j_idt58:1">Concepto</label></td><td><div class="ui-chkbox ui-widget"><div class="ui-helper-hidden-accessible"><input id="searchForm:j_idt58:2" name="searchForm:j_idt58" type="checkbox" value="SENTENCIA" /></div><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default"><span class="ui-chkbox-icon ui-c"></span></div></div></td><td><label for="searchForm:j_idt58:2">Sentencia</label></td></tr></table><script id="searchForm:j_idt58_s" type="text/javascript">PrimeFaces.cw("SelectManyCheckbox","widget_searchForm_j_idt58",{id:"searchForm:j_idt58",widgetVar:"widget_searchForm_j_idt58"});</script><table id="searchForm:j_idt62" class="ui-selectmanycheckbox ui-widget choicesSmall"><tr><td><div class="ui-chkbox ui-widget"><div class="ui-helper-hidden-accessible"><input id="searchForm:j_idt62:0" name="searchForm:j_idt62" type="checkbox" value="EXTENSION JURISPRUDENCIAL" /></div><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default"><span class="ui-chkbox-icon ui-c"></span></div></div></td><td><label for="searchForm:j_idt62:0">Extensión jurisprudencial</label></td><td><div class="ui-chkbox ui-widget"><div class="ui-helper-hidden-accessible"><input id="searchForm:j_idt62:1" name="searchForm:j_idt62" type="checkbox" value="SENTENCIA DE UNIFICACION" /></div><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default"><span class="ui-chkbox-icon ui-c"></span></div></div></td><td><label for="searchForm:j_idt62:1">Sentencia de unificación</label></td></tr></table><script id="searchForm:j_idt62_s" type="text/javascript">PrimeFaces.cw("SelectManyCheckbox","widget_searchForm_j_idt62",{id:"searchForm:j_idt62",widgetVar:"widget_searchForm_j_idt62"});</script></div></fieldset><script id="searchForm:set-tipo_s" type="text/javascript">PrimeFaces.cw("Fieldset","widget_searchForm_set_tipo",{id:"searchForm:set-tipo",widgetVar:"widget_searchForm_set_tipo"});</script><fieldset id="searchForm:set-tema" class="ui-fieldset ui-widget ui-widget-content ui-corner-all ui-hidden-container" style="width: 455px;" data-widget="widget_searchForm_set_tema"><legend class="ui-fieldset-legend ui-corner-all ui-state-default">Tema</legend><div class="ui-fieldset-content"><table>
+<tbody>
+<tr>
+<td><table width="355px">
+<tbody>
+<tr>
+<td><span style="font-size: 10px;">Use comillas para buscar frases exactas "frase de ejemplo"<br>Use el conector <b>Y</b> separando los términos entre comillas "xxx" Y "yyy"<br>Use el conector <b>O</b> separando los términos entre comillas "xxx" O "yyy"</span></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<input id="searchForm:temaInput" name="searchForm:temaInput" type="text" onchange="this.value=this.value.toUpperCase();;" style="width: 100%" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" /><script id="searchForm:temaInput_s" type="text/javascript">PrimeFaces.cw("InputText","widget_searchForm_temaInput",{id:"searchForm:temaInput",widgetVar:"widget_searchForm_temaInput"});</script></div></fieldset><script id="searchForm:set-tema_s" type="text/javascript">PrimeFaces.cw("Fieldset","widget_searchForm_set_tema",{id:"searchForm:set-tema",widgetVar:"widget_searchForm_set_tema",behaviors:{toggle:function(ext) {PrimeFaces.ab({s:'searchForm:set-tema',e:'toggle',p:'searchForm:set-tema',u:'searchForm:set-tema'},ext);}}});</script><table>
+<tbody>
+<tr>
+<td class="halfPanelColumn"><fieldset id="searchForm:set-seccion" class="ui-fieldset ui-widget ui-widget-content ui-corner-all ui-hidden-container" data-widget="widget_searchForm_set_seccion"><legend class="ui-fieldset-legend ui-corner-all ui-state-default">Seccion</legend><div class="ui-fieldset-content"><div id="searchForm:j_idt71" class="ui-selectonemenu ui-widget ui-state-default ui-corner-all"><div class="ui-helper-hidden-accessible"><select id="searchForm:j_idt71_input" name="searchForm:j_idt71_input" tabindex="-1"><option value="" selected="selected">TODAS</option><option value="SECCION PRIMERA">SECCION PRIMERA</option><option value="SECCION SEGUNDA">SECCION SEGUNDA</option><option value="SECCION TERCERA">SECCION TERCERA</option><option value="SECCION CUARTA">SECCION CUARTA</option><option value="SECCION QUINTA">SECCION QUINTA</option><option value="SALA CONTENCIOSA ADMINISTRATIVA">SALA CONTENCIOSA ADMINISTRATIVA</option><option value="SALA DE ACUERDO">SALA DE ACUERDO</option><option value="SALA DE ASUNTOS ELECTORALES">SALA DE ASUNTOS ELECTORALES</option><option value="SALA DE CONSULTA Y SERVICIO CIVIL">SALA DE CONSULTA Y SERVICIO CIVIL</option><option value="SALA DE DECISION">SALA DE DECISION</option><option value="SALA DE DECISION DISCIPLINARIA">SALA DE DECISION DISCIPLINARIA</option><option value="SALA DE LO CONTENCIOSO ADMINISTRATIVO">SALA DE LO CONTENCIOSO ADMINISTRATIVO</option><option value="SALA DE LO CONTENCIOSO ELECTORAL">SALA DE LO CONTENCIOSO ELECTORAL</option><option value="SALA DE NEGOCIOS ELECTORALES">SALA DE NEGOCIOS ELECTORALES</option><option value="SALA DE NEGOCIOS GENERALES">SALA DE NEGOCIOS GENERALES</option><option value="SALA DISCIPLINARIA">SALA DISCIPLINARIA</option><option value="SALA DUAL">SALA DUAL</option><option value="SALA ELECTORAL">SALA ELECTORAL</option><option value="SALA PLENA">SALA PLENA</option><option value="SALA TRIAL">SALA TRIAL</option><option value="SALA TRIAL DE APELACION">SALA TRIAL DE APELACION</option><option value="SALA UNITARIA">SALA UNITARIA</option></select></div><div class="ui-helper-hidden-accessible"><input id="searchForm:j_idt71_focus" name="searchForm:j_idt71_focus" type="text" readonly="readonly" /></div><label id="searchForm:j_idt71_label" class="ui-selectonemenu-label ui-inputfield ui-corner-all">&nbsp;</label><div class="ui-selectonemenu-trigger ui-state-default ui-corner-right"><span class="ui-icon ui-icon-triangle-1-s ui-c"></span></div><div id="searchForm:j_idt71_panel" class="ui-selectonemenu-panel ui-widget-content ui-corner-all ui-helper-hidden ui-shadow"><div class="ui-selectonemenu-items-wrapper" style="height:200px"><ul class="ui-selectonemenu-items ui-selectonemenu-list ui-widget-content ui-widget ui-corner-all ui-helper-reset"><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="TODAS">TODAS</li><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="SECCION PRIMERA">SECCION PRIMERA</li><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="SECCION SEGUNDA">SECCION SEGUNDA</li><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="SECCION TERCERA">SECCION TERCERA</li><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="SECCION CUARTA">SECCION CUARTA</li><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="SECCION QUINTA">SECCION QUINTA</li><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="SALA CONTENCIOSA ADMINISTRATIVA">SALA CONTENCIOSA ADMINISTRATIVA</li><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="SALA DE ACUERDO">SALA DE ACUERDO</li><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="SALA DE ASUNTOS ELECTORALES">SALA DE ASUNTOS ELECTORALES</li><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="SALA DE CONSULTA Y SERVICIO CIVIL">SALA DE CONSULTA Y SERVICIO CIVIL</li><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="SALA DE DECISION">SALA DE DECISION</li><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="SALA DE DECISION DISCIPLINARIA">SALA DE DECISION DISCIPLINARIA</li><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="SALA DE LO CONTENCIOSO ADMINISTRATIVO">SALA DE LO CONTENCIOSO ADMINISTRATIVO</li><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="SALA DE LO CONTENCIOSO ELECTORAL">SALA DE LO CONTENCIOSO ELECTORAL</li><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="SALA DE NEGOCIOS ELECTORALES">SALA DE NEGOCIOS ELECTORALES</li><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="SALA DE NEGOCIOS GENERALES">SALA DE NEGOCIOS GENERALES</li><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="SALA DISCIPLINARIA">SALA DISCIPLINARIA</li><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="SALA DUAL">SALA DUAL</li><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="SALA ELECTORAL">SALA ELECTORAL</li><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="SALA PLENA">SALA PLENA</li><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="SALA TRIAL">SALA TRIAL</li><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="SALA TRIAL DE APELACION">SALA TRIAL DE APELACION</li><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="SALA UNITARIA">SALA UNITARIA</li></ul></div></div></div><script id="searchForm:j_idt71_s" type="text/javascript">$(function(){PrimeFaces.cw("SelectOneMenu","seccSelect",{id:"searchForm:j_idt71",widgetVar:"seccSelect"});});</script></div></fieldset><script id="searchForm:set-seccion_s" type="text/javascript">PrimeFaces.cw("Fieldset","widget_searchForm_set_seccion",{id:"searchForm:set-seccion",widgetVar:"widget_searchForm_set_seccion",behaviors:{toggle:function(ext) {PrimeFaces.ab({s:'searchForm:set-seccion',e:'toggle',p:'searchForm:set-seccion',u:'searchForm:set-seccion'},ext);}}});</script></td>
+<td><fieldset id="searchForm:set-radicado" class="ui-fieldset ui-widget ui-widget-content ui-corner-all ui-hidden-container" data-widget="widget_searchForm_set_radicado"><legend class="ui-fieldset-legend ui-corner-all ui-state-default">Nº Proceso</legend><div class="ui-fieldset-content"><input id="searchForm:j_idt95" name="searchForm:j_idt95" type="text" onchange="this.value=this.value.toUpperCase();;" style="width: 100%" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" /><script id="searchForm:j_idt95_s" type="text/javascript">PrimeFaces.cw("InputText","widget_searchForm_j_idt95",{id:"searchForm:j_idt95",widgetVar:"widget_searchForm_j_idt95"});</script></div></fieldset><script id="searchForm:set-radicado_s" type="text/javascript">PrimeFaces.cw("Fieldset","widget_searchForm_set_radicado",{id:"searchForm:set-radicado",widgetVar:"widget_searchForm_set_radicado",behaviors:{toggle:function(ext) {PrimeFaces.ab({s:'searchForm:set-radicado',e:'toggle',p:'searchForm:set-radicado',u:'searchForm:set-radicado'},ext);}}});</script></td>
+</tr>
+</tbody>
+</table>
+<fieldset id="searchForm:set-ponente" class="ui-fieldset ui-widget ui-widget-content ui-corner-all ui-hidden-container" style="width: 455px;" data-widget="widget_searchForm_set_ponente"><legend class="ui-fieldset-legend ui-corner-all ui-state-default">Ponente</legend><div class="ui-fieldset-content"><table width="100%">
+<tbody>
+<tr><td></td></tr></tbody>
+</table>
+<input id="searchForm:j_idt97" name="searchForm:j_idt97" type="text" onchange="this.value=this.value.toUpperCase();;" style="width: 100%" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" /><script id="searchForm:j_idt97_s" type="text/javascript">PrimeFaces.cw("InputText","widget_searchForm_j_idt97",{id:"searchForm:j_idt97",widgetVar:"widget_searchForm_j_idt97"});</script></div></fieldset><script id="searchForm:set-ponente_s" type="text/javascript">PrimeFaces.cw("Fieldset","widget_searchForm_set_ponente",{id:"searchForm:set-ponente",widgetVar:"widget_searchForm_set_ponente",behaviors:{toggle:function(ext) {PrimeFaces.ab({s:'searchForm:set-ponente',e:'toggle',p:'searchForm:set-ponente',u:'searchForm:set-ponente'},ext);}}});</script><fieldset id="searchForm:set-fecha" class="ui-fieldset ui-widget ui-widget-content ui-corner-all ui-hidden-container" style="width: 455px;" data-widget="widget_searchForm_set_fecha"><legend class="ui-fieldset-legend ui-corner-all ui-state-default">Fecha</legend><div class="ui-fieldset-content"><table width="100%">
+<tbody>
+<tr>
+<td class="panel60"><span style="font-size: 12px;">Formato: DD/MM/AAAA</span></td>
+<td class="panel40"><table>
+<tbody>
+<tr><td></td></tr></tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td class="panel60"><span style="font-size: 12px;">Desde:</span></td>
+<td class="panel40"><span style="font-size: 12px;">Hasta:</span></td>
+</tr>
+<tr>
+<td class="panel60"><span id="searchForm:fechaIniCal"><input id="searchForm:fechaIniCal_input" name="searchForm:fechaIniCal_input" type="text" class="ui-inputfield ui-widget ui-state-default ui-corner-all" /></span><script id="searchForm:fechaIniCal_s" type="text/javascript">$(function(){PrimeFaces.cw("Calendar","widget_searchForm_fechaIniCal",{id:"searchForm:fechaIniCal",widgetVar:"widget_searchForm_fechaIniCal",popup:true,locale:"es",dateFormat:"d/mm/y"});});</script></td>
+<td class="panel40"><span id="searchForm:fechaFinCal"><input id="searchForm:fechaFinCal_input" name="searchForm:fechaFinCal_input" type="text" class="ui-inputfield ui-widget ui-state-default ui-corner-all" /></span><script id="searchForm:fechaFinCal_s" type="text/javascript">$(function(){PrimeFaces.cw("Calendar","widget_searchForm_fechaFinCal",{id:"searchForm:fechaFinCal",widgetVar:"widget_searchForm_fechaFinCal",popup:true,locale:"es",dateFormat:"d/mm/y"});});</script></td>
+</tr>
+</tbody>
+</table>
+</div></fieldset><script id="searchForm:set-fecha_s" type="text/javascript">PrimeFaces.cw("Fieldset","widget_searchForm_set_fecha",{id:"searchForm:set-fecha",widgetVar:"widget_searchForm_set_fecha",behaviors:{toggle:function(ext) {PrimeFaces.ab({s:'searchForm:set-fecha',e:'toggle',p:'searchForm:set-fecha',u:'searchForm:set-fecha'},ext);}}});</script><table style="margin-top: 5px;" width="400px">
+<tbody>
+<tr>
+<td><span style="font-size: 11px;font-weight: bold;margin-left: 18px;">Use comillas para buscar frases exactas en los siguientes campos:</span></td>
+</tr>
+</tbody>
+</table>
+<table width="100%">
+<tbody>
+<tr>
+<td class="halfPanelColumn"><fieldset id="searchForm:set-demandante" class="ui-fieldset ui-widget ui-widget-content ui-corner-all ui-hidden-container" data-widget="widget_searchForm_set_demandante"><legend class="ui-fieldset-legend ui-corner-all ui-state-default">Demandante</legend><div class="ui-fieldset-content"><input id="searchForm:j_idt106" name="searchForm:j_idt106" type="text" onchange="this.value=this.value.toUpperCase();;" style="width: 100%" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" /><script id="searchForm:j_idt106_s" type="text/javascript">PrimeFaces.cw("InputText","widget_searchForm_j_idt106",{id:"searchForm:j_idt106",widgetVar:"widget_searchForm_j_idt106"});</script></div></fieldset><script id="searchForm:set-demandante_s" type="text/javascript">PrimeFaces.cw("Fieldset","widget_searchForm_set_demandante",{id:"searchForm:set-demandante",widgetVar:"widget_searchForm_set_demandante",behaviors:{toggle:function(ext) {PrimeFaces.ab({s:'searchForm:set-demandante',e:'toggle',p:'searchForm:set-demandante',u:'searchForm:set-demandante'},ext);}}});</script></td>
+<td><fieldset id="searchForm:set-demandado" class="ui-fieldset ui-widget ui-widget-content ui-corner-all ui-hidden-container" data-widget="widget_searchForm_set_demandado"><legend class="ui-fieldset-legend ui-corner-all ui-state-default">Demandado</legend><div class="ui-fieldset-content"><input id="searchForm:j_idt107" name="searchForm:j_idt107" type="text" onchange="this.value=this.value.toUpperCase();;" style="width: 100%" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" /><script id="searchForm:j_idt107_s" type="text/javascript">PrimeFaces.cw("InputText","widget_searchForm_j_idt107",{id:"searchForm:j_idt107",widgetVar:"widget_searchForm_j_idt107"});</script></div></fieldset><script id="searchForm:set-demandado_s" type="text/javascript">PrimeFaces.cw("Fieldset","widget_searchForm_set_demandado",{id:"searchForm:set-demandado",widgetVar:"widget_searchForm_set_demandado",behaviors:{toggle:function(ext) {PrimeFaces.ab({s:'searchForm:set-demandado',e:'toggle',p:'searchForm:set-demandado',u:'searchForm:set-demandado'},ext);}}});</script></td>
+</tr>
+</tbody>
+</table>
+<table width="100%">
+<tbody>
+<tr>
+<td class="halfPanelColumn"><fieldset id="searchForm:set-fuente" class="ui-fieldset ui-widget ui-widget-content ui-corner-all ui-hidden-container" data-widget="widget_searchForm_set_fuente"><legend class="ui-fieldset-legend ui-corner-all ui-state-default">Sustento Normativo</legend><div class="ui-fieldset-content"><input id="searchForm:j_idt109" name="searchForm:j_idt109" type="text" onchange="this.value=this.value.toUpperCase();;" style="width: 100%" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" /><script id="searchForm:j_idt109_s" type="text/javascript">PrimeFaces.cw("InputText","widget_searchForm_j_idt109",{id:"searchForm:j_idt109",widgetVar:"widget_searchForm_j_idt109"});</script></div></fieldset><script id="searchForm:set-fuente_s" type="text/javascript">PrimeFaces.cw("Fieldset","widget_searchForm_set_fuente",{id:"searchForm:set-fuente",widgetVar:"widget_searchForm_set_fuente",behaviors:{toggle:function(ext) {PrimeFaces.ab({s:'searchForm:set-fuente',e:'toggle',p:'searchForm:set-fuente',u:'searchForm:set-fuente'},ext);}}});</script></td>
+<td><fieldset id="searchForm:set-norma" class="ui-fieldset ui-widget ui-widget-content ui-corner-all ui-hidden-container" data-widget="widget_searchForm_set_norma"><legend class="ui-fieldset-legend ui-corner-all ui-state-default">Norma Demandada</legend><div class="ui-fieldset-content"><input id="searchForm:j_idt110" name="searchForm:j_idt110" type="text" onchange="this.value=this.value.toUpperCase();;" style="width: 100%" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" /><script id="searchForm:j_idt110_s" type="text/javascript">PrimeFaces.cw("InputText","widget_searchForm_j_idt110",{id:"searchForm:j_idt110",widgetVar:"widget_searchForm_j_idt110"});</script></div></fieldset><script id="searchForm:set-norma_s" type="text/javascript">PrimeFaces.cw("Fieldset","widget_searchForm_set_norma",{id:"searchForm:set-norma",widgetVar:"widget_searchForm_set_norma",behaviors:{toggle:function(ext) {PrimeFaces.ab({s:'searchForm:set-norma',e:'toggle',p:'searchForm:set-norma',u:'searchForm:set-norma'},ext);}}});</script></td>
+</tr>
+</tbody>
+</table>
+<fieldset id="searchForm:set-fulltxt" class="ui-fieldset ui-widget ui-widget-content ui-corner-all ui-hidden-container" style="width: 455px;" data-widget="widget_searchForm_set_fulltxt"><legend class="ui-fieldset-legend ui-corner-all ui-state-default">Texto Completo</legend><div class="ui-fieldset-content"><table>
+<tbody>
+<tr>
+<td><table width="355px">
+<tbody>
+<tr>
+<td><span style="font-size: 10px;">Consultar contenido de texto completo en el icono HTML</span></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<input id="searchForm:j_idt114" name="searchForm:j_idt114" type="text" onchange="this.value=this.value.toUpperCase();;" style="width: 100%" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" /><script id="searchForm:j_idt114_s" type="text/javascript">PrimeFaces.cw("InputText","widget_searchForm_j_idt114",{id:"searchForm:j_idt114",widgetVar:"widget_searchForm_j_idt114"});</script></div></fieldset><script id="searchForm:set-fulltxt_s" type="text/javascript">PrimeFaces.cw("Fieldset","widget_searchForm_set_fulltxt",{id:"searchForm:set-fulltxt",widgetVar:"widget_searchForm_set_fulltxt",behaviors:{toggle:function(ext) {PrimeFaces.ab({s:'searchForm:set-fulltxt',e:'toggle',p:'searchForm:set-fulltxt',u:'searchForm:set-fulltxt'},ext);}}});</script><table width="100%">
+<tbody>
+<tr>
+<td class="halfPanelColumn"><button id="searchForm:j_idt116" name="searchForm:j_idt116" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left searchButton" onclick="PF('waitdlgstop').show();PrimeFaces.ab({s:'searchForm:j_idt116',u:'resultForm:jurisTable mainFormCE:messages resultForm:pagText resultForm:pagText2'});return false;" type="submit"><span class="ui-button-icon-left ui-icon ui-c searchIcon"></span><span class="ui-button-text ui-c">Buscar</span></button><script id="searchForm:j_idt116_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_searchForm_j_idt116",{id:"searchForm:j_idt116",widgetVar:"widget_searchForm_j_idt116"});</script></td>
+<td><button id="searchForm:j_idt117" name="searchForm:j_idt117" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only clearButton" onclick="PrimeFaces.ab({s:'searchForm:j_idt117',u:'resultForm:jurisTable searchForm'});return false;" type="submit"><span class="ui-button-text ui-c">Nueva Búsqueda</span></button><script id="searchForm:j_idt117_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_searchForm_j_idt117",{id:"searchForm:j_idt117",widgetVar:"widget_searchForm_j_idt117"});</script></td>
+</tr>
+</tbody>
+</table>
+<input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:1" value="5045970684989329350:543765650508937854" autocomplete="off" />
+</form></div></div><div id="resultUnit" class="ui-layout-unit ui-widget ui-widget-content ui-corner-all ui-layout-center" style="background-color: #F0F0F0;"><div class="ui-layout-unit-header ui-widget-header ui-corner-all"><span class="ui-layout-unit-header-title">Resultados de la búsqueda</span></div><div class="ui-layout-unit-content ui-widget-content">
+<form id="resultForm" name="resultForm" method="post" action="/WebRelatoria/ce/index.xhtml;jsessionid=D7DAFC0AB3209977E98BB2CC20E31D61" enctype="application/x-www-form-urlencoded" style="background-color: #F0F0F0;">
+<input type="hidden" name="resultForm" value="resultForm" />
+<script type="text/javascript">$(function() {$(document).bind('keydown', 'left', function(){PrimeFaces.ab({s:'resultForm:j_idt118',f:'resultForm',u:'resultForm:jurisTable resultForm:pagText resultForm:pagText2'});;return false;});});</script><script type="text/javascript">$(function() {$(document).bind('keydown', 'right', function(){PrimeFaces.ab({s:'resultForm:j_idt119',f:'resultForm',u:'resultForm:jurisTable resultForm:pagText resultForm:pagText2'});;return false;});});</script><table>
+<tbody>
+<tr>
+<td><table width="45px">
+<tbody>
+<tr>
+<td><button id="resultForm:hidebutton" name="resultForm:hidebutton" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only toggleButton" onclick="PrimeFaces.ab({s:'resultForm:hidebutton',u:'resultForm:hidebutton resultForm:hidebutton2'});return false;" type="submit"><span class="ui-button-icon-left ui-icon ui-c toggleIconHide"></span><span class="ui-button-text ui-c">ui-button</span></button><script id="resultForm:hidebutton_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_resultForm_hidebutton",{id:"resultForm:hidebutton",widgetVar:"widget_resultForm_hidebutton"});</script></td>
+</tr>
+</tbody>
+</table>
+</td>
+<td><table>
+<tbody>
+<tr>
+<td><table style="float:right;">
+<tbody>
+<tr>
+<td> </td>
+<td><table>
+<tbody>
+<tr>
+<td class="halfPanelColumn"><button id="resultForm:j_idt126" name="resultForm:j_idt126" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left reportButton" onclick="PF('waitdlgce').show();;PrimeFaces.ab({s:'resultForm:j_idt126'});return false;" style="float:right;" type="submit"><span class="ui-button-icon-left ui-icon ui-c reportIcon"></span><span class="ui-button-text ui-c">Reporte</span></button><script id="resultForm:j_idt126_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_resultForm_j_idt126",{id:"resultForm:j_idt126",widgetVar:"widget_resultForm_j_idt126"});</script></td>
+<td><button id="resultForm:j_idt127" name="resultForm:j_idt127" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left sendButton" onclick="PF('maildlg').show();;PrimeFaces.ab({s:'resultForm:j_idt127'});return false;" style="float:right;" type="submit"><span class="ui-button-icon-left ui-icon ui-c sendIcon"></span><span class="ui-button-text ui-c">Enviar</span></button><script id="resultForm:j_idt127_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_resultForm_j_idt127",{id:"resultForm:j_idt127",widgetVar:"widget_resultForm_j_idt127"});</script></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td><table>
+<tbody>
+<tr>
+<td><table style="margin-top: 10px; width: 200px;">
+<tbody>
+<tr>
+<td><button id="resultForm:j_idt130" name="resultForm:j_idt130" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only listButton" onclick="PrimeFaces.ab({s:'resultForm:j_idt130',u:'resultForm:jurisTable'});return false;" type="submit"><span class="ui-button-text ui-c"></span></button><script id="resultForm:j_idt130_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_resultForm_j_idt130",{id:"resultForm:j_idt130",widgetVar:"widget_resultForm_j_idt130"});</script></td>
+<td><span style="font-size: 12px;"> Seleccionar Todos</span></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td><table class="panelGridCenter" style="text-align: center;">
+<tbody>
+<tr>
+<td><span id="resultForm:pagText2" style="width: 200px;margin-left: auto;font-weight: bold;">Resultado: 1 /  0</span></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td><div id="resultForm:j_idt133" class="ui-scrollpanel ui-widget ui-widget-content" style="width: 100%; height: 550px; overflow: auto;"><div id="resultForm:jurisTable" class="ui-datatable ui-widget hide-column-names"><div class="ui-datatable-tablewrapper"><table role="grid" style="height:550px;"><thead id="resultForm:jurisTable_head"><tr role="row"><th id="resultForm:jurisTable:j_idt134" class="ui-state-default ui-selection-column" role="columnheader" style="width: 20px;"><span class="ui-column-title"></span><div class="ui-chkbox ui-chkbox-all ui-widget"><div class="ui-helper-hidden-accessible"><input type="checkbox" name="resultForm:jurisTable_checkbox" /></div><div class="ui-chkbox-box ui-widget ui-corner-all ui-state-default"><span class="ui-chkbox-icon ui-c"></span></div></div></th><th id="resultForm:jurisTable:id" class="ui-state-default" role="columnheader" style="width: 90%;"><span class="ui-column-title">Contenido</span></th><th id="resultForm:jurisTable:linkcol" class="ui-state-default" role="columnheader" style="width: 40px;vertical-align: top;"><span class="ui-column-title"></span></th></tr></thead><tfoot id="resultForm:jurisTable_foot"></tfoot><tbody id="resultForm:jurisTable_data" class="ui-datatable-data ui-widget-content"><tr class="ui-widget-content ui-datatable-empty-message"><td colspan="3">...</td></tr></tbody></table></div><input type="hidden" id="resultForm:jurisTable_selection" name="resultForm:jurisTable_selection" autocomplete="off" value="" /></div><script id="resultForm:jurisTable_s" type="text/javascript">$(function(){PrimeFaces.cw("DataTable","widget_resultForm_jurisTable",{id:"resultForm:jurisTable",widgetVar:"widget_resultForm_jurisTable",selectionMode:"checkbox"});});</script></div><script id="resultForm:j_idt133_s" type="text/javascript">PrimeFaces.cw("ScrollPanel","widget_resultForm_j_idt133",{id:"resultForm:j_idt133",widgetVar:"widget_resultForm_j_idt133"});</script></td>
+</tr>
+<tr>
+<td><table id="resultForm:pagPanel" class="panelGridCenter" style="width: 300px;text-align: center;">
+<tbody>
+<tr>
+<td><button id="resultForm:j_idt138" name="resultForm:j_idt138" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only pageButton" onclick="PrimeFaces.ab({s:'resultForm:j_idt138',u:'resultForm:jurisTable resultForm:pagPanel resultForm:pagText resultForm:pagText2'});return false;" type="submit"><span class="ui-button-icon-left ui-icon ui-c firstIcon"></span><span class="ui-button-text ui-c">ui-button</span></button><script id="resultForm:j_idt138_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_resultForm_j_idt138",{id:"resultForm:j_idt138",widgetVar:"widget_resultForm_j_idt138"});</script></td>
+<td><button id="resultForm:j_idt139" name="resultForm:j_idt139" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only pageButton" onclick="PrimeFaces.ab({s:'resultForm:j_idt139',u:'resultForm:jurisTable resultForm:pagPanel resultForm:pagText resultForm:pagText2'});return false;" type="submit"><span class="ui-button-icon-left ui-icon ui-c leftIcon"></span><span class="ui-button-text ui-c">ui-button</span></button><script id="resultForm:j_idt139_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_resultForm_j_idt139",{id:"resultForm:j_idt139",widgetVar:"widget_resultForm_j_idt139"});</script></td>
+<td><span id="resultForm:pagText" style="width: 200px;margin-left: auto;font-weight: bold;">Resultado: 1 / 0</span></td>
+<td><button id="resultForm:j_idt140" name="resultForm:j_idt140" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only pageButton" onclick="PrimeFaces.ab({s:'resultForm:j_idt140',u:'resultForm:jurisTable resultForm:pagPanel resultForm:pagText resultForm:pagText2'});return false;" type="submit"><span class="ui-button-icon-left ui-icon ui-c rightIcon"></span><span class="ui-button-text ui-c">ui-button</span></button><script id="resultForm:j_idt140_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_resultForm_j_idt140",{id:"resultForm:j_idt140",widgetVar:"widget_resultForm_j_idt140"});</script></td>
+<td><button id="resultForm:j_idt141" name="resultForm:j_idt141" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only pageButton" onclick="PrimeFaces.ab({s:'resultForm:j_idt141',u:'resultForm:jurisTable resultForm:pagPanel resultForm:pagText resultForm:pagText2'});return false;" type="submit"><span class="ui-button-icon-left ui-icon ui-c lastIcon"></span><span class="ui-button-text ui-c">ui-button</span></button><script id="resultForm:j_idt141_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_resultForm_j_idt141",{id:"resultForm:j_idt141",widgetVar:"widget_resultForm_j_idt141"});</script></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:2" value="5045970684989329350:543765650508937854" autocomplete="off" />
+</form></div></div></div></body>
+</html>
