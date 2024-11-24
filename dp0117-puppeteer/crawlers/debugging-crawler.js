@@ -15,7 +15,7 @@ import cheerio from "cheerio";
 import fs from "fs";
 
 import { fetchWithCookies } from "../../utils/fetcher.js";
-import puppeteerManager from "../../utils/PuppeteerManager.js";
+import puppeteerManager from "../../utils/crawling/PuppeteerManager.js";
 
 
 /**
