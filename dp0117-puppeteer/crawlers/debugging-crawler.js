@@ -1,13 +1,22 @@
 "use strict";
 
-const moment = require("moment");
-const url = require("url");
-const querystring = require("querystring");
-const cheerio = require("cheerio");
-const fs = require("fs");
+// const moment = require("moment");
+// const url = require("url");
+// const querystring = require("querystring");
+// const cheerio = require("cheerio");
+// const fs = require("fs");
 
-const { fetchWithCookies } = require("../../utils/fetcher");
-const puppeteerManager = require("../../utils/PuppeteerManager");
+// const { fetchWithCookies } = require("../../utils/fetcher");
+// const puppeteerManager = require("../../utils/PuppeteerManager");
+import moment from "moment";
+import url from "url";
+import querystring from "querystring";
+import cheerio from "cheerio";
+import fs from "fs";
+
+import { fetchWithCookies } from "../../utils/fetcher.js";
+import puppeteerManager from "../../utils/PuppeteerManager.js";
+
 
 /**
  * THIS CRAWLER IS ONLY FOR DEBUGGING ON ICEBERG!
